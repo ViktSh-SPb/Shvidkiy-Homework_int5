@@ -38,9 +38,6 @@ public class UserEventListener {
         message.setTo(event.getEmail());
         message.setSubject(subject);
         message.setText(text);
-        System.out.println(message.getTo());
-        System.out.println(message.getSubject());
-        System.out.println(message.getText());
         mailSender.send(message);
     }
 }
