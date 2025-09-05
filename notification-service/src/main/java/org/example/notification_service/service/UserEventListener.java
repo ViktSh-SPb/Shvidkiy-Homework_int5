@@ -22,23 +22,10 @@ public class UserEventListener {
             groupId = "notification-group",
             containerFactory = "kafkaListenerContainerFactory")
     public void listen(UserEvent event) {
-        String subject;
-        String text;
-
-        if (Operation.CREATE.equals(event.getOperation())) {
-            subject = "Аккаунт создан";
-            text = "Здравствуйте! Ваш аккаунт на сайте ваш сайт был успешно создан.";
-        } else if (Operation.DELETE.equals(event.getOperation())) {
-            subject = "Аккаунт удален";
-            text = "Здравствуйте! Ваш аккаунт был удалён.";
-        } else {
-            return;
-        }
-
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(event.getEmail());
-        message.setSubject(subject);
-        message.setText(text);
+        message.setSubject(event.getOperation().getSubject());
+        message.setText(event.getOperation().getText());
         mailSender.send(message);
     }
 }
