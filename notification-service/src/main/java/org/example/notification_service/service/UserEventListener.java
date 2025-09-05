@@ -1,5 +1,6 @@
 package org.example.notification_service.service;
 
+import org.example.commonevents.dto.Operation;
 import org.example.commonevents.dto.UserEvent;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,10 +25,10 @@ public class UserEventListener {
         String subject;
         String text;
 
-        if ("CREATE".equals(event.getOperation())) {
+        if (Operation.CREATE.equals(event.getOperation())) {
             subject = "Аккаунт создан";
             text = "Здравствуйте! Ваш аккаунт на сайте ваш сайт был успешно создан.";
-        } else if ("DELETE".equals(event.getOperation())) {
+        } else if (Operation.DELETE.equals(event.getOperation())) {
             subject = "Аккаунт удален";
             text = "Здравствуйте! Ваш аккаунт был удалён.";
         } else {

@@ -1,5 +1,6 @@
 package org.example.user_service.service;
 
+import org.example.commonevents.dto.Operation;
 import org.example.commonevents.dto.UserEvent;
 import org.example.user_service.dto.UserDto;
 import org.example.user_service.dto.UserRequestDto;
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService {
         user.setCreatedAt(LocalDateTime.now());
         UserEntity saved = userRepository.save(user);
 
-        kafkaProducer.sendUserEvent(new UserEvent("CREATE", saved.getEmail()));
+        kafkaProducer.sendUserEvent(new UserEvent(Operation.CREATE, saved.getEmail()));
 
         return userMapper.entityToDto(saved);
     }
@@ -70,6 +71,6 @@ public class UserServiceImpl implements UserService {
 
         userRepository.deleteById(id);
 
-        kafkaProducer.sendUserEvent(new UserEvent("DELETE", user.getEmail()));
+        kafkaProducer.sendUserEvent(new UserEvent(Operation.DELETE, user.getEmail()));
     }
 }
