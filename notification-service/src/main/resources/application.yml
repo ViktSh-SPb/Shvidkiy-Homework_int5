@@ -25,3 +25,8 @@ spring:
           auth: true
           starttls:
             enable: true
+server:
+  port: 10002
+  error:
+    whitelabel:
+      enabled: false

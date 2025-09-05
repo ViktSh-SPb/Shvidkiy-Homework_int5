@@ -22,6 +22,10 @@ public class UserEventListener {
             groupId = "notification-group",
             containerFactory = "kafkaListenerContainerFactory")
     public void listen(UserEvent event) {
+        processEvent(event);
+    }
+
+    public void processEvent(UserEvent event){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(event.getEmail());
         message.setSubject(event.getOperation().getSubject());
