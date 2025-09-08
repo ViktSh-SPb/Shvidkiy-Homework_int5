@@ -11,10 +11,14 @@ import jakarta.validation.Valid;
 import org.example.user_service.dto.UserDto;
 import org.example.user_service.dto.UserRequestDto;
 import org.example.user_service.service.UserService;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Viktor Shvidkiy
@@ -52,8 +56,9 @@ public class UserController {
             )
     })
     @PostMapping
-    public UserDto createUser(@Valid @RequestBody UserRequestDto dto) {
-        return userService.createUser(dto);
+    public EntityModel<UserDto> createUser(@Valid @RequestBody UserRequestDto dto) {
+        UserDto createdUser = userService.createUser(dto);
+        return toEntityModel(createdUser);
     }
 
     @Operation(summary = "Получить список всех пользователей")
@@ -70,8 +75,17 @@ public class UserController {
             )
     })
     @GetMapping
-    public List<UserDto> getAllUsers() {
-        return userService.getAllUsers();
+    public CollectionModel<EntityModel<UserDto>> getAllUsers() {
+        List<EntityModel<UserDto>> users = userService.getAllUsers()
+                .stream()
+                .map(this::toEntityModel)
+                .toList();
+        return CollectionModel.of(users, WebMvcLinkBuilder
+                .linkTo(WebMvcLinkBuilder
+                        .methodOn(UserController.class)
+                        .getAllUsers())
+                .withSelfRel()
+        );
     }
 
     @Operation(summary = "Найти пользователя по ID")
@@ -97,8 +111,8 @@ public class UserController {
             )
     })
     @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable Integer id) {
-        return userService.getUserById(id);
+    public EntityModel<UserDto> getUserById(@PathVariable Integer id) {
+        return toEntityModel(userService.getUserById(id));
     }
 
     @Operation(summary = "Обновить данные пользователя")
@@ -120,8 +134,8 @@ public class UserController {
             )
     })
     @PutMapping("/{id}")
-    public UserDto updateUser(@PathVariable Integer id, @Valid @RequestBody UserRequestDto dto) {
-        return userService.updateUser(id, dto);
+    public EntityModel<UserDto> updateUser(@PathVariable Integer id, @Valid @RequestBody UserRequestDto dto) {
+        return toEntityModel(userService.updateUser(id, dto));
     }
 
     @Operation(summary = "Удалить пользователя")
@@ -133,5 +147,18 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private EntityModel<UserDto> toEntityModel(UserDto user){
+        return EntityModel.of(user,
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class)
+                        .getUserById(user.getId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class)
+                        .updateUser(user.getId(), null)).withRel("update"),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class)
+                        .deleteUser(user.getId())).withRel("delete"),
+                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class)
+                        .getAllUsers()).withRel("all-users")
+        );
     }
 }

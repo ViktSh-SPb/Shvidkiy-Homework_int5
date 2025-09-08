@@ -32,4 +32,11 @@ public class MyExceptionHandler {
                 .forEach(error->errors.put(error.getField(), error.getDefaultMessage()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
+
+    public ResponseEntity<Map<String, Object>> handleOtherExceptions(Exception ex){
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", ex.getClass().getSimpleName());
+        body.put("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
+    }
 }
