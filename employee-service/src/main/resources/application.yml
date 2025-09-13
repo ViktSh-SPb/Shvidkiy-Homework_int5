@@ -1,0 +1,17 @@
+spring:
+  application: name=Shvidkiy-Homework_int5
+  datasource:
+    url: jdbc:postgresql://147.45.225.242:10001/learn_db
+    username: user
+    password: AstonHomework2
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      dialect: org.hibernate.dialect.PostgreSQL17Dialect
+server:
+  port: 10003
+  error:
+    whitelabel:
+      enabled: false
