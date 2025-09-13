@@ -1,6 +1,5 @@
 package org.example.user_service.controller;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import org.example.user_service.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
