@@ -10,14 +10,16 @@ import lombok.Data;
 @Data
 @Builder
 public class EmployeeDto {
-    @Schema(description = "ID пользователя", example = "1")
+    @Schema(description = "ID сотрудника", example = "1")
     private Integer id;
-    @Schema(description = "Имя пользователя", example = "John")
+    @Schema(description = "Имя сотрудника", example = "John")
     private String name;
-    @Schema(description = "Email пользователя", example = "john@example.com")
+    @Schema(description = "Должность сотрудника", example = "manager")
+    private String jobTitle;
+    @Schema(description = "Email сотрудника", example = "john@example.com")
     private String email;
-    @Schema(description = "Возраст пользователя", example = "25")
+    @Schema(description = "Возраст сотрудника", example = "25")
     private Integer age;
-    @Schema(description = "Дата внесения пользователя", example = "2025-09-01 02:46:09.910872")
+    @Schema(description = "Дата внесения сотрудника", example = "2025-09-01 02:46:09.910872")
     private String createdAt;
 }

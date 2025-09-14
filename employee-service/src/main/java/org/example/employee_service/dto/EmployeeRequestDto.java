@@ -14,12 +14,14 @@ import lombok.Data;
 @Builder
 public class EmployeeRequestDto {
     @NotBlank(message = "Имя не может быть пустым")
-    @Schema(description = "Имя пользователя", example = "John")
+    @Schema(description = "Имя сотрудника", example = "John")
     private String name;
+    @Schema(description = "Должность сотрудника", example = "manager")
+    private String jobTitle;
     @Email(message = "Некорректный email")
-    @Schema(description = "Email пользователя", example = "john@example.com")
+    @Schema(description = "Email сотрудника", example = "john@example.com")
     private String email;
     @Min(value = 0, message = "Возраст не может быть отрицательным")
-    @Schema(description = "Возраст пользователя", example = "25")
+    @Schema(description = "Возраст сотрудника", example = "25")
     private Integer age;
 }

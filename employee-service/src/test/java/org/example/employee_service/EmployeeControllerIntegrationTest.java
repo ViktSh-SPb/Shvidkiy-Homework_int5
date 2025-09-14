@@ -53,7 +53,7 @@ public class EmployeeControllerIntegrationTest {
     @DynamicPropertySource
     static void configureProperties(DynamicPropertyRegistry registry){
         registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.employeename", postgres::getUsername);
+        registry.add("spring.datasource.username", postgres::getUsername);
         registry.add("spring.datasource.password", postgres::getPassword);
         registry.add("spring.jpa.hibernate.ddl-auto", ()->"create-drop");
     }
@@ -92,17 +92,17 @@ public class EmployeeControllerIntegrationTest {
 
         mockMvc.perform(get("/employees"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id").value(employee1.getId()))
-                .andExpect(jsonPath("$[0].name").value(employee1.getName()))
-                .andExpect(jsonPath("$[0].email").value(employee1.getEmail()))
-                .andExpect(jsonPath("$[0].age").value(employee1.getAge()))
-                .andExpect(jsonPath("$[0].createdAt").value(employee1.getCreatedAt()))
-                .andExpect(jsonPath("$[1].id").value(employee2.getId()))
-                .andExpect(jsonPath("$[1].name").value(employee2.getName()))
-                .andExpect(jsonPath("$[1].email").value(employee2.getEmail()))
-                .andExpect(jsonPath("$[1].age").value(employee2.getAge()))
-                .andExpect(jsonPath("$[1].createdAt").value(employee2.getCreatedAt()));
+                .andExpect(jsonPath("$._embedded.employeeDtoList", hasSize(2)))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].id").value(employee1.getId()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].name").value(employee1.getName()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].email").value(employee1.getEmail()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].age").value(employee1.getAge()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].createdAt").value(employee1.getCreatedAt()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].id").value(employee2.getId()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].name").value(employee2.getName()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].email").value(employee2.getEmail()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].age").value(employee2.getAge()))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].createdAt").value(employee2.getCreatedAt()));
     }
 
     @Test

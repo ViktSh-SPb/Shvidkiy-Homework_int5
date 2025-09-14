@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Viktor Shvidkiy
  */
 public class EmployeeMapperImplTest {
-    private final EmployeeMapperImpl userMapperImpl = new EmployeeMapperImpl();
+    private final EmployeeMapperImpl employeeMapperImpl = new EmployeeMapperImpl();
 
     @Test
     void testEntityToDto(){
@@ -28,7 +28,7 @@ public class EmployeeMapperImplTest {
                 .createdAt(time)
                 .build();
 
-        EmployeeDto dto = userMapperImpl.entityToDto(entity);
+        EmployeeDto dto = employeeMapperImpl.entityToDto(entity);
 
         assertAll(
                 ()->assertEquals(entity.getId(), dto.getId()),
@@ -48,7 +48,7 @@ public class EmployeeMapperImplTest {
                 .age(20)
                 .build();
 
-        EmployeeEntity entity = userMapperImpl.userRequestDtoToEntity(requestDto);
+        EmployeeEntity entity = employeeMapperImpl.employeeRequestDtoToEntity(requestDto);
 
         assertAll(
                 ()->assertNull(entity.getId()),
@@ -74,7 +74,7 @@ public class EmployeeMapperImplTest {
                 .age(20)
                 .build();
 
-        userMapperImpl.updateEntity(entity, updateDto);
+        employeeMapperImpl.updateEntity(entity, updateDto);
 
         assertAll(
                 ()->assertEquals("TomAfter", entity.getName()),

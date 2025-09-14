@@ -40,7 +40,7 @@ public class EmployeeControllerTest {
     private EmployeeService employeeService;
 
     @Test
-    void createUserSuccess() throws Exception{
+    void createEmployeeSuccess() throws Exception{
         String time = LocalDateTime.now().toString();
         EmployeeRequestDto requestDto = EmployeeRequestDto.builder()
                 .name("Jack")
@@ -57,7 +57,7 @@ public class EmployeeControllerTest {
 
         when(employeeService.createEmployee(any(EmployeeRequestDto.class))).thenReturn(createdDto);
 
-        mockMvc.perform(post("/users")
+        mockMvc.perform(post("/employees")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
@@ -69,10 +69,10 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void getAllUsersShouldReturnList() throws Exception {
+    void getAllEmployeesShouldReturnList() throws Exception {
         String time1 = LocalDateTime.now().minusMinutes(10).toString();
         String time2 = LocalDateTime.now().toString();
-        List<EmployeeDto> users = List.of(
+        List<EmployeeDto> employees = List.of(
                 EmployeeDto.builder()
                         .id(1)
                         .name("Jack")
@@ -89,23 +89,23 @@ public class EmployeeControllerTest {
                         .build()
         );
 
-        when(employeeService.getAllEmployees()).thenReturn(users);
+        when(employeeService.getAllEmployees()).thenReturn(employees);
 
-        mockMvc.perform(get("/users"))
+        mockMvc.perform(get("/employees"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].name").value("Jack"))
-                .andExpect(jsonPath("$[0].email").value("jack@gmail.com"))
-                .andExpect(jsonPath("$[0].age").value("30"))
-                .andExpect(jsonPath("$[0].createdAt").value(time1))
-                .andExpect(jsonPath("$[1].name").value("Bill"))
-                .andExpect(jsonPath("$[1].email").value("bill@gmail.com"))
-                .andExpect(jsonPath("$[1].age").value("35"))
-                .andExpect(jsonPath("$[1].createdAt").value(time2));
+                .andExpect(jsonPath("$._embedded.employeeDtoList", hasSize(2)))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].name").value("Jack"))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].email").value("jack@gmail.com"))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].age").value("30"))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[0].createdAt").value(time1))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].name").value("Bill"))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].email").value("bill@gmail.com"))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].age").value("35"))
+                .andExpect(jsonPath("$._embedded.employeeDtoList[1].createdAt").value(time2));
     }
 
     @Test
-    void getUserByIdFound() throws Exception {
+    void getEmployeeByIdFound() throws Exception {
         String time = LocalDateTime.now().toString();
         EmployeeDto dto = EmployeeDto.builder()
                 .id(1)
@@ -117,7 +117,7 @@ public class EmployeeControllerTest {
 
         when(employeeService.getEmployeeById(1)).thenReturn(dto);
 
-        mockMvc.perform(get("/users/1"))
+        mockMvc.perform(get("/employees/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Bob"))
                 .andExpect(jsonPath("$.email").value("bob@gmail.com"))
@@ -126,18 +126,18 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void getUserByIdNotFound() throws Exception{
-        int userId = 100;
-        when(employeeService.getEmployeeById(userId))
-                .thenThrow(new EmployeeNotFoundException("Пользователь с ID: " + userId + " не найден."));
+    void getEmployeeByIdNotFound() throws Exception{
+        int employeeId = 100;
+        when(employeeService.getEmployeeById(employeeId))
+                .thenThrow(new EmployeeNotFoundException("Пользователь с ID: " + employeeId + " не найден."));
 
-        mockMvc.perform(get("/users/100"))
+        mockMvc.perform(get("/employees/100"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string("Пользователь с ID: 100 не найден."));
     }
 
     @Test
-    void updateUserSuccess() throws Exception{
+    void updateEmployeeSuccess() throws Exception{
         String time = LocalDateTime.now().toString();
         EmployeeRequestDto requestDto = EmployeeRequestDto.builder()
                 .name("Tom")
@@ -154,7 +154,7 @@ public class EmployeeControllerTest {
 
         when(employeeService.updateEmployee(eq(1), any(EmployeeRequestDto.class))).thenReturn(updatedDto);
 
-        mockMvc.perform(put("/users/1")
+        mockMvc.perform(put("/employees/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isOk())
@@ -166,7 +166,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void updateUserNotFound() throws Exception{
+    void updateEmployeeNotFound() throws Exception{
         EmployeeRequestDto requestDto = EmployeeRequestDto.builder()
                 .name("Max")
                 .email("max@gmail.com")
@@ -176,15 +176,15 @@ public class EmployeeControllerTest {
         when(employeeService.updateEmployee(eq(200), any(EmployeeRequestDto.class)))
                 .thenThrow(new EmployeeNotFoundException("Пользователь с ID: 200 не найден."));
 
-        mockMvc.perform(put("/users/200")
+        mockMvc.perform(put("/employees/200")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDto)))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void deleteUserSuccess() throws Exception{
-        mockMvc.perform(delete("/users/1"))
+    void deleteEmployeeSuccess() throws Exception{
+        mockMvc.perform(delete("/employees/1"))
                 .andExpect(status().isNoContent());
 
         Mockito.verify(employeeService).deleteEmployee(1);

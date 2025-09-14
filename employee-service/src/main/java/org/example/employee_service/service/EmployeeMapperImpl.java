@@ -14,6 +14,7 @@ public class EmployeeMapperImpl implements org.example.employee_service.service.
         return EmployeeDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
+                .jobTitle(entity.getJobTitle())
                 .email(entity.getEmail())
                 .age(entity.getAge())
                 .createdAt(entity.getCreatedAt()!=null? entity.getCreatedAt().toString():null)
@@ -23,6 +24,7 @@ public class EmployeeMapperImpl implements org.example.employee_service.service.
     public EmployeeEntity employeeRequestDtoToEntity(EmployeeRequestDto dto){
         return EmployeeEntity.builder()
                 .name(dto.getName())
+                .jobTitle(dto.getJobTitle())
                 .email(dto.getEmail())
                 .age(dto.getAge())
                 .build();
@@ -30,6 +32,7 @@ public class EmployeeMapperImpl implements org.example.employee_service.service.
 
     public void updateEntity(EmployeeEntity entity, EmployeeRequestDto dto){
         entity.setName(dto.getName());
+        entity.setJobTitle(dto.getJobTitle());
         entity.setEmail(dto.getEmail());
         entity.setAge(dto.getAge());
     }

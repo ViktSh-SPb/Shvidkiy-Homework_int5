@@ -21,6 +21,8 @@ public class EmployeeEntity {
     private Integer id;
     @Column
     private String name;
+    @Column (name = "job_title")
+    private String jobTitle;
     @Column
     private String email;
     @Column

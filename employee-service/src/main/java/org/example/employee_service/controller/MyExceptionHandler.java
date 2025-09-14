@@ -17,7 +17,7 @@ import java.util.Map;
 public class MyExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<String> handleUserNotFoundException(EmployeeNotFoundException ex){
+    public ResponseEntity<String> handleEmployeeNotFoundException(EmployeeNotFoundException ex){
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(ex.getMessage());

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * @author Viktor Shvidkiy
  */
-@Tag(name = "Employees", description = "Операции с пользователями")
+@Tag(name = "Employees", description = "Операции с сотрудниками")
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
@@ -32,11 +32,11 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @Operation(summary = "Создать нового пользователя")
+    @Operation(summary = "Создать нового сотрудника")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "Пользователь успешно создан",
+                    description = "Сотрудник успешно создан",
                     content = @Content(schema = @Schema(implementation = EmployeeDto.class))
             ),
             @ApiResponse(
@@ -60,11 +60,11 @@ public class EmployeeController {
         return toEntityModel(createdEmployee);
     }
 
-    @Operation(summary = "Получить список всех пользователей")
+    @Operation(summary = "Получить список всех сотрудников")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "Список пользователей получен",
+                    description = "Список сотрудников получен",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = EmployeeDto.class)))
             ),
             @ApiResponse(
@@ -87,16 +87,16 @@ public class EmployeeController {
         );
     }
 
-    @Operation(summary = "Найти пользователя по ID")
+    @Operation(summary = "Найти сотрудника по ID")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
-                    description = "Пользователь найден",
+                    description = "Сотрудник найден",
                     content = @Content(schema = @Schema(implementation = EmployeeDto.class))
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Пользователь не найден",
+                    description = "Сотрудник не найден",
                     content = @Content(schema = @Schema(
                             type = "object",
                             additionalPropertiesSchema = String.class,
@@ -114,7 +114,7 @@ public class EmployeeController {
         return toEntityModel(employeeService.getEmployeeById(id));
     }
 
-    @Operation(summary = "Обновить данные пользователя")
+    @Operation(summary = "Обновить данные сотрудника")
     @ApiResponses({
             @ApiResponse(
                     responseCode = "200",
@@ -137,10 +137,10 @@ public class EmployeeController {
         return toEntityModel(employeeService.updateEmployee(id, dto));
     }
 
-    @Operation(summary = "Удалить пользователя")
+    @Operation(summary = "Удалить сотрудника")
     @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Пользователь удален"),
-            @ApiResponse(responseCode = "404", description = "Пользователь не найден")
+            @ApiResponse(responseCode = "204", description = "Сотрудник удален"),
+            @ApiResponse(responseCode = "404", description = "Сотрудник не найден")
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
