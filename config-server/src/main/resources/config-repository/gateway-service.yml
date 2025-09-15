@@ -11,9 +11,31 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/users/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: userServiceCB
+                fallbackUri: forward:/fallback/users
         - id: employee-service
           uri: lb://employee-service
           predicates:
             - Path=/employees/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: employeeServiceCB
+                fallbackUri: forward:/fallback/employees
       default-filters:
         - AddResponseHeader=X-Gateway, SpringCloudGateway
+resilience4j.circuitbreaker:
+  instances:
+    userServiceCB:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      waitDurationInOpenState: 5000
+    employeeServiceCB:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      waitDurationInOpenState: 5000

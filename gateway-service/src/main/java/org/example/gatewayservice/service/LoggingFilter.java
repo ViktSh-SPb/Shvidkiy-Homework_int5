@@ -1,4 +1,4 @@
-package org.example.gatewayservice;
+package org.example.gatewayservice.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
