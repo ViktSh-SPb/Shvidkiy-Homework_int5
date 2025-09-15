@@ -1,23 +1,9 @@
-server:
-  port: 10004
-
 spring:
   application:
     name: gateway-service
-  cloud:
-    gateway:
-      routes:
-        - id: user-service
-          uri: http://localhost:10001
-          predicates:
-            - Path=/users/**
-        - id: employee-service
-          uri: http://localhost:10003
-          predicates:
-            - Path=/employees/**
-      default-filters:
-        - AddResponseHeader=X-Gateway, SpringCloudGateway
+  config:
+    import: "optional:configserver:http://localhost:10006"
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:10005/eureka/
+      defaultZone: http://localhost:8761/eureka/

@@ -1,6 +1,7 @@
 package org.example.notification_service;
 
 import jakarta.mail.internet.MimeMessage;
+import org.example.commonevents.dto.Operation;
 import org.example.commonevents.dto.UserEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ public class UserEventListenerIntegrationTest {
     @Test
     void testUserEventCreateSendsEmail(){
         UserEvent event = new UserEvent();
-        event.setOperation("CREATE");
+        event.setOperation(Operation.CREATE);
         event.setEmail("test@example.com");
 
         kafkaTemplate.send("user-events", event);
@@ -61,7 +62,7 @@ public class UserEventListenerIntegrationTest {
     @Test
     void testUserEventDeleteSendsEmail(){
         UserEvent event = new UserEvent();
-        event.setOperation("DELETE");
+        event.setOperation(Operation.DELETE);
         event.setEmail("test@example.com");
 
         kafkaTemplate.send("user-events", event);

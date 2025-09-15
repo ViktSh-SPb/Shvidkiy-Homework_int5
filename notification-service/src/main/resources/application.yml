@@ -1,32 +1,6 @@
 spring:
-  application: name=notification-service
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    consumer:
-      group-id: notification-group
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: '*'
-    listener:
-      type: single
-      ack-mode: manual
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: for.generate17091986@gmail.com
-    password: krug qlji jckp yycj
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-server:
-  port: 10002
-  error:
-    whitelabel:
-      enabled: false
+  application:
+    name: notification-service
+  cloud:
+    config:
+      uri: http://localhost:10006
