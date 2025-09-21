@@ -3,11 +3,13 @@ spring:
     name: notification-service
 
   config:
-    import: "optional:configserver:http://localhost:10006"
-
-  eureka:
-    client:
-      service-url:
-        defaultZone: http://localhost:8761/eureka/
-      register-with-eureka: true
-      fetch-registry: true
+    import: "optional:configserver:http://config-server:10006"
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    prefer-ip-address: false
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true

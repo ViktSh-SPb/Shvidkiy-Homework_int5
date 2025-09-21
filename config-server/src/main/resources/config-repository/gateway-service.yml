@@ -36,6 +36,6 @@ resilience4j.circuitbreaker:
       waitDurationInOpenState: 5000
     employeeServiceCB:
       registerHealthIndicator: true
-      slidingWindowSize: 10
+      slidingWindowSize: 20
       failureRateThreshold: 50
       waitDurationInOpenState: 5000

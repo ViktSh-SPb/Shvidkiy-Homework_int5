@@ -1,9 +1,9 @@
 package org.example.employee_service;
 
-import org.example.employee_service.dto.UserDto;
-import org.example.employee_service.dto.UserRequestDto;
-import org.example.employee_service.entity.UserEntity;
-import org.example.employee_service.service.UserMapperImpl;
+import org.example.user_service.dto.UserDto;
+import org.example.user_service.dto.UserRequestDto;
+import org.example.user_service.entity.UserEntity;
+import org.example.user_service.service.UserMapperImpl;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

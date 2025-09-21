@@ -1,4 +1,4 @@
-package org.example.employee_service.service;
+package org.example.user_service.service;
 
 import org.example.commonevents.dto.UserEvent;
 import org.springframework.kafka.core.KafkaTemplate;

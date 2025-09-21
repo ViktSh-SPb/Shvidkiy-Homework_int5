@@ -1,7 +1,7 @@
-package org.example.employee_service.service;
+package org.example.user_service.service;
 
-import org.example.employee_service.dto.UserDto;
-import org.example.employee_service.dto.UserRequestDto;
+import org.example.user_service.dto.UserDto;
+import org.example.user_service.dto.UserRequestDto;
 
 import java.util.List;
 

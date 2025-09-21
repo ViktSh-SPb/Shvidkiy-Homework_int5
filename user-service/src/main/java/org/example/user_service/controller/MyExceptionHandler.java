@@ -1,6 +1,6 @@
-package org.example.employee_service.controller;
+package org.example.user_service.controller;
 
-import org.example.employee_service.exception.UserNotFoundException;
+import org.example.user_service.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
