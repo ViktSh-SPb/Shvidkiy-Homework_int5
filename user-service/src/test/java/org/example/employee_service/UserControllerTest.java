@@ -1,11 +1,11 @@
 package org.example.employee_service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.employee_service.controller.UserController;
-import org.example.employee_service.dto.UserDto;
-import org.example.employee_service.dto.UserRequestDto;
-import org.example.employee_service.exception.UserNotFoundException;
-import org.example.employee_service.service.UserService;
+import org.example.user_service.controller.UserController;
+import org.example.user_service.dto.UserDto;
+import org.example.user_service.dto.UserRequestDto;
+import org.example.user_service.exception.UserNotFoundException;
+import org.example.user_service.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

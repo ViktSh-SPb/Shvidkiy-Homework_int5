@@ -1,13 +1,13 @@
 package org.example.employee_service;
 
-import org.example.employee_service.dto.UserDto;
-import org.example.employee_service.dto.UserRequestDto;
-import org.example.employee_service.entity.UserEntity;
-import org.example.employee_service.exception.UserNotFoundException;
-import org.example.employee_service.repository.UserRepository;
-import org.example.employee_service.service.UserKafkaProducer;
-import org.example.employee_service.service.UserMapper;
-import org.example.employee_service.service.UserServiceImpl;
+import org.example.user_service.dto.UserDto;
+import org.example.user_service.dto.UserRequestDto;
+import org.example.user_service.entity.UserEntity;
+import org.example.user_service.exception.UserNotFoundException;
+import org.example.user_service.repository.UserRepository;
+import org.example.user_service.service.UserKafkaProducer;
+import org.example.user_service.service.UserMapper;
+import org.example.user_service.service.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,12 +1,12 @@
-package org.example.employee_service.service;
+package org.example.user_service.service;
 
 import org.example.commonevents.dto.Operation;
 import org.example.commonevents.dto.UserEvent;
-import org.example.employee_service.dto.UserDto;
-import org.example.employee_service.dto.UserRequestDto;
-import org.example.employee_service.entity.UserEntity;
-import org.example.employee_service.exception.UserNotFoundException;
-import org.example.employee_service.repository.UserRepository;
+import org.example.user_service.dto.UserDto;
+import org.example.user_service.dto.UserRequestDto;
+import org.example.user_service.entity.UserEntity;
+import org.example.user_service.exception.UserNotFoundException;
+import org.example.user_service.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

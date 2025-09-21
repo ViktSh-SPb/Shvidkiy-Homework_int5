@@ -1,10 +1,10 @@
 package org.example.employee_service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.employee_service.dto.UserDto;
-import org.example.employee_service.dto.UserRequestDto;
-import org.example.employee_service.repository.UserRepository;
-import org.example.employee_service.service.UserService;
+import org.example.user_service.dto.UserDto;
+import org.example.user_service.dto.UserRequestDto;
+import org.example.user_service.repository.UserRepository;
+import org.example.user_service.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

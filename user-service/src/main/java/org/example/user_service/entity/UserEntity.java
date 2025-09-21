@@ -1,4 +1,4 @@
-package org.example.employee_service.entity;
+package org.example.user_service.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
